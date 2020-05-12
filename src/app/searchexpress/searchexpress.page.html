@@ -1,0 +1,60 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Consulta Rapida</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content [fullscreen]="true">
+  <ion-grid>
+    <ion-row>
+      <ion-col size="12">
+        <ion-item>
+          <ion-label position="floating">Número de tarjeta</ion-label>
+          <ion-input type="tel" pattern="[0-9]*" [formControl]="cardIDField"></ion-input>
+        </ion-item>
+      </ion-col>
+      <ion-col size="12">
+        <ion-button expand="block" color="success" (click)="btnGetBalance()" [disabled]="cardIDField.invalid">
+          <ion-icon name="search"></ion-icon>&nbsp;Consultar
+        </ion-button>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-card *ngIf="isViewValid" class="animated fadeIn">
+          <ion-item>
+            <ion-icon name="card" slot="start"></ion-icon>
+            <ion-label *ngIf="!cardInformation">
+              <ion-skeleton-text animated style="width: 70%"></ion-skeleton-text>
+            </ion-label>
+            <ion-label *ngIf="cardInformation">{{ cardInformation?.Item.CardID }}</ion-label>
+            <ion-button fill="outline" slot="end" [disabled]="!CanSave" (click)="btnSaveCard()">Guardar</ion-button>
+          </ion-item>
+          <ion-item>
+            <ion-icon name="cash" slot="start"></ion-icon>
+            <ion-label *ngIf="!cardInformation">
+              <ion-skeleton-text animated style="width: 20%"></ion-skeleton-text>
+            </ion-label>
+            <ion-label *ngIf="cardInformation">{{ cardInformation?.Item.Balance }}</ion-label>
+          </ion-item>
+
+          <ion-item>
+            <ion-icon name="checkmark" slot="start"></ion-icon>
+            <ion-label *ngIf="!cardInformation">
+              <ion-skeleton-text animated style="width: 50%"></ion-skeleton-text>
+            </ion-label>
+            <ion-label *ngIf="cardInformation">{{ cardInformation?.Item.Status }}</ion-label>
+          </ion-item>
+
+          <ion-item>
+            <ion-icon name="calendar" slot="start"></ion-icon>
+            <ion-label *ngIf="!cardInformation">
+              <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
+            </ion-label>
+            <ion-label *ngIf="cardInformation">{{ cardInformation?.Item.LastTransactionAt }}</ion-label>
+          </ion-item>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <ion-button fill="outline" slot="end">Obtener</ion-button>
+</ion-content>

@@ -1,0 +1,8 @@
+{
+  "name": "metroapp",
+  "integrations": {
+    "capacitor": {},
+    "cordova": {}
+  },
+  "type": "angular"
+}
